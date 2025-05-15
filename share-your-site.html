@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Jewelry Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #d4af37;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        .option {
+            background-color: #f9f9f9;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        .option h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            background-color: #d4af37;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #c49b30;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+        }
+        .note {
+            background-color: #fff8e1;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Share Your Jewelry Website</h1>
+    <p>Choose one of the following options to share your beautiful jewelry website with friends and family.</p>
+
+    <div class="option">
+        <h2>Option 1: Share on Your Local Network (Easiest)</h2>
+        <p>This option works when you and your friends are on the same WiFi network.</p>
+        <ol>
+            <li>Double-click the <code>start-server.bat</code> file</li>
+            <li>Look for your IP address in the window that appears</li>
+            <li>Share the URL (something like <code>http://192.168.1.100:8080</code>) with your friends</li>
+            <li>They can type this address in their browser to see your site</li>
+        </ol>
+        <a href="start-server.bat" class="button">Start Local Server</a>
+    </div>
+
+    <div class="option">
+        <h2>Option 2: Share Publicly (Advanced)</h2>
+        <p>This option lets you share with anyone on the internet, no matter where they are.</p>
+        <div class="note">
+            <strong>Note:</strong> This requires installing ngrok, a free tool for creating public URLs.
+        </div>
+        <ol>
+            <li>If you don't have ngrok, <a href="https://ngrok.com/download" target="_blank">download it here</a></li>
+            <li>Double-click the <code>share-public.bat</code> file</li>
+            <li>Follow the instructions in the window that appears</li>
+            <li>You'll get a public URL to share with anyone</li>
+        </ol>
+        <a href="share-public.bat" class="button">Share Publicly</a>
+    </div>
+
+    <div class="note">
+        <p><strong>Need more help?</strong> Check the <code>SERVER-INSTRUCTIONS.md</code> file for detailed instructions and troubleshooting tips.</p>
+    </div>
+
+    <p style="margin-top: 40px; text-align: center; color: #888;">
+        Created for your Luxury Jewelry Website
+    </p>
+</body>
+</html> 

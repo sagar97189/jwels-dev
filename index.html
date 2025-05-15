@@ -1,0 +1,2827 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Jewelry | Premium Collections</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Add this in the head section before the luxury-heading-styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #d4af37;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transform: rotate(0deg);
+        }
+        
+        /* Global Particle Container */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9;
+            overflow: hidden;
+        }
+        
+        /* Update global particle style to match team section style */
+        .particle {
+            position: absolute;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 0 0 4px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Enhanced Gradient Text Effect */
+        .enhanced-gradient-text {
+            background: none;
+            color: #d4af37;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+        
+        /* Gradient text - replaced with gold color */
+        .gradient-text {
+            background: none;
+            color: #d4af37;
+            font-weight: 800;
+            animation: none;
+        }
+        
+        /* Legacy text - replaced with white/gold */
+        .sliding-gradient-text {
+            background: none;
+            color: white;
+            font-weight: 800;
+            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: none;
+        }
+        
+        .sliding-gradient-text:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        /* Section title style - gold color */
+        .section-title {
+            color: #d4af37;
+            font-weight: 800;
+            position: relative;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: transparent;
+        }
+        
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            animation: pulse 2s infinite;
+        }
+        .scroll-to-top:hover {
+            background-color: #c49b30;
+        }
+        .scroll-to-top i {
+            transform: rotate(-45deg);
+            transition: transform 0.5s ease;
+        }
+        .scroll-to-top.flying i {
+            transform: rotate(0deg);
+        }
+        .scroll-to-top.reached-top {
+            animation: pop 0.5s ease-out;
+        }
+        /* Screen effects */
+        .screen-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 215, 0, 0.3);
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            animation: screenFlash 0.8s ease-out;
+        }
+        @keyframes screenFlash {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes textGradient {
+            0% {
+                background-position: -100% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+            100% { transform: scale(1); }
+        }
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #d4af37;
+            opacity: 0;
+        }
+        /* Bubble styles */
+        .bubble-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            overflow: hidden;
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(212, 175, 55, 0.4));
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(1px);
+            opacity: 0;
+            will-change: transform;
+        }
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        @keyframes sway {
+            0% { margin-left: -20px; }
+            50% { margin-left: 20px; }
+            100% { margin-left: -20px; }
+        }
+        /* Falling bubble animation */
+        @keyframes fall-down {
+            0% {
+                transform: translateY(-50px) scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) scale(0.7) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .testimonial-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            margin: 15px;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 80px;
+            color: #d4af37;
+            opacity: 0.1;
+        }
+
+        .testimonial-content {
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin: 0;
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            border: 4px solid #d4af37;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: #333;
+        }
+
+        .testimonial-position {
+            font-size: 16px;
+            color: #666;
+            margin: 0 0 8px 0;
+        }
+
+        .testimonial-rating {
+            color: #d4af37;
+            font-size: 18px;
+        }
+
+        .testimonial-pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .testimonial-pagination span {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-pagination span.active {
+            background: #d4af37;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 991px) {
+            .testimonial-card {
+                margin-bottom: 30px;
+                padding: 30px;
+            }
+            
+            .testimonial-quote {
+                font-size: 60px;
+                top: 20px;
+                right: 30px;
+            }
+            
+            .testimonial-content p {
+                font-size: 16px;
+            }
+            
+            .testimonial-avatar {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .testimonial-name {
+                font-size: 18px;
+            }
+        }
+
+        /* Quick View Modal Styles */
+        .quick-view-image {
+            position: relative;
+            margin-bottom: 20px;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .quick-view-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 15px;
+            background-color: #d4af37;
+            color: white;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1;
+        }
+        
+        .quick-view-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .quick-view-category {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #f8f9fa;
+            font-size: 14px;
+            color: #777;
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+        
+        .quick-view-rating {
+            margin-bottom: 15px;
+            color: #d4af37;
+        }
+        
+        .quick-view-price {
+            margin-bottom: 20px;
+        }
+        
+        .quick-view-price .current-price {
+            font-size: 24px;
+            color: #d4af37;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        .quick-view-price .old-price {
+            font-size: 18px;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .quick-view-description {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .quick-view-meta {
+            margin-bottom: 20px;
+        }
+        
+        .meta-item {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .meta-label {
+            color: #777;
+            margin-right: 5px;
+        }
+        
+        .meta-value {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .meta-value.in-stock {
+            color: #28a745;
+        }
+        
+        .quick-view-quantity {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+        
+        .quantity-minus,
+        .quantity-plus {
+            width: 35px;
+            height: 35px;
+            background-color: #f8f9fa;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .quantity-number {
+            width: 50px;
+            height: 35px;
+            border: none;
+            text-align: center;
+            font-size: 14px;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+        
+        .quick-view-btn {
+            padding: 8px 25px;
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-view-btn:hover {
+            background-color: #c49b30;
+        }
+        
+        .quick-view-actions {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .quick-view-action-btn {
+            background: none;
+            border: none;
+            color: #777;
+            font-size: 14px;
+            margin-right: 20px;
+            padding: 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .quick-view-action-btn:hover {
+            color: #d4af37;
+        }
+        
+        .quick-view-action-btn i {
+            margin-right: 5px;
+        }
+
+        @media (max-width: 767px) {
+            .quick-view-quantity {
+                flex-direction: column;
+            }
+            
+            .quantity-input {
+                margin-bottom: 15px;
+                margin-right: 0;
+                width: 120px;
+            }
+        }
+
+        /* Team Section Styles */
+        .team-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            margin-bottom: 30px;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-image {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.1);
+        }
+
+        .team-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(212, 175, 55, 0.8), transparent);
+            opacity: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+
+        .team-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .team-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: white;
+            color: #d4af37;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .team-card:hover .team-social a {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .team-card:hover .team-social a:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .team-card:hover .team-social a:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .team-card:hover .team-social a:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .team-social a:hover {
+            background: #d4af37;
+            color: white;
+        }
+
+        .team-info {
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .team-info h4 {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .team-info p.text-muted {
+            color: #777;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .team-info p.text-muted:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: #d4af37;
+        }
+
+        .team-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Team Section Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 40px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+                transform: scale(1);
+            }
+        }
+
+        .simple-team-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 100%;
+            transition: all 0.5s ease;
+            position: relative;
+            opacity: 0;
+        }
+        
+        .simple-team-card.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .simple-team-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .simple-team-image {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+        
+        .simple-team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+        
+        .simple-team-card:hover .simple-team-image img {
+            transform: scale(1.1) rotate(3deg);
+        }
+        
+        .simple-team-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(212, 175, 55, 0.8), transparent);
+            opacity: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 30px;
+            transition: opacity 0.5s ease;
+        }
+        
+        .simple-team-card:hover .simple-team-overlay {
+            opacity: 1;
+        }
+        
+        .simple-team-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .simple-team-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: white;
+            color: #d4af37;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .simple-team-card:hover .simple-team-social a {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .simple-team-card:hover .simple-team-social a:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+        
+        .simple-team-card:hover .simple-team-social a:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+        
+        .simple-team-card:hover .simple-team-social a:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+        
+        .simple-team-social a:hover {
+            background: #d4af37;
+            color: white;
+            transform: scale(1.2);
+        }
+        
+        .simple-team-content {
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .simple-team-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .simple-team-name:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.5s ease;
+        }
+        
+        .simple-team-card:hover .simple-team-name:after {
+            width: 100%;
+        }
+        
+        .simple-team-position {
+            color: #d4af37;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .simple-team-position:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: #e0e0e0;
+        }
+        
+        .simple-team-card:hover .simple-team-position {
+            animation: shimmer 3s linear infinite;
+            background: linear-gradient(to right, #d4af37 20%, #ffffff 40%, #ffffff 60%, #d4af37 80%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        .simple-team-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+            transition: all 0.5s ease;
+        }
+        
+        .simple-team-card:hover .simple-team-description {
+            color: #444;
+        }
+
+        /* Adjust team section spacing */
+        #simple-team {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #simple-team:before, #simple-team:after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0) 70%);
+            z-index: 0;
+        }
+        
+        #simple-team:before {
+            top: -50px;
+            left: -50px;
+        }
+        
+        #simple-team:after {
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        /* Apply sliding gradient to team heading - replaced with gold style */
+        .simple-team-heading {
+            position: relative;
+            color: #d4af37;
+            font-size: 36px;
+            margin-bottom: 30px;
+            display: inline-block;
+            font-weight: 800;
+        }
+        
+        .simple-team-heading:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        .simple-team-subheading {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animation for the pulsing effect on hover */
+        .pulse-on-hover:hover {
+            animation: pulse 2s infinite;
+        }
+
+        /* Additional styling classes */
+        .text-gradient {
+            background: linear-gradient(45deg, #d4af37, #f7ef8a, #d4af37);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* NEW: Custom sliding gradient effect for the legacy text */
+        @keyframes slidingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .sliding-gradient-text {
+            background: linear-gradient(90deg, #d4af37, #ffffff, #f7ef8a, #ffffff, #d4af37);
+            background-size: 200% 100%;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: slidingGradient 3s ease infinite;
+            font-weight: bold;
+            display: inline-block;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Apply sliding gradient to all section titles */
+        .section-title {
+            position: relative;
+            margin-bottom: 15px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #d4af37, #ffffff, #f7ef8a, #ffffff, #d4af37);
+            background-size: 200% 100%;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: slidingGradient 3s ease infinite;
+            display: inline-block;
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Remove gradient effects and make headings bolder */
+        /* Reset gradient animations */
+        @keyframes textGradient {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes slidingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Apply bold style to all heading types */
+        .sliding-gradient-text, .gradient-text, .enhanced-gradient-text, .text-gradient, .simple-team-heading, .section-title {
+            animation: none !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            color: inherit !important;
+            font-weight: 900 !important;
+            position: relative;
+            text-shadow: none;
+        }
+        
+        /* Hero heading */
+        .sliding-gradient-text {
+            color: #fff !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .sliding-gradient-text:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        /* Section titles */
+        .section-title {
+            position: relative;
+            margin-bottom: 25px;
+            color: #333 !important;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: transparent;
+        }
+        
+        /* Reset all heading elements */
+        h1, h2, h3, h4, h5, h6 {
+            animation: none !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+        }
+        
+        /* Style for section subtitles */
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+    <!-- Add this before the closing </head> tag -->
+    <style id="final-heading-fixes">
+        /* Final override styles to ensure all headings look correct */
+        h1, h2, h3, h4, h5, h6 {
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            animation: none !important;
+        }
+        
+        /* Section titles */
+        .section-title, section h2, .section-padding h2 {
+            color: #d4af37 !important;
+            font-weight: 900 !important;
+            letter-spacing: 0.5px;
+            position: relative;
+            margin-bottom: 30px;
+            text-shadow: none !important;
+        }
+        
+        /* Hero section */
+        .hero-section h1, .hero-section h2 {
+            color: #ffffff !important;
+            font-weight: 900 !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+        }
+        
+        /* Team section */
+        #simple-team h2 {
+            color: #d4af37 !important;
+            font-weight: 900 !important;
+        }
+        
+        /* Ensure all gradient text classes are overridden */
+        .gradient-text, .enhanced-gradient-text, .sliding-gradient-text, .text-gradient {
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            animation: none !important;
+        }
+    </style>
+    <style id="heading-fix" type="text/css">
+    /* HEADING VISIBILITY FIX - this will override all other styles */
+    h1, h2, h3, h4, h5, h6,
+    .section-title, .section-title h2, section h2, 
+    .simple-team-heading, #simple-team h2,
+    .sliding-gradient-text, .gradient-text, .enhanced-gradient-text, .text-gradient,
+    .product-title, .collection-info h3, .service-card h3,
+    .contact-info-content h4, .about-feature h3, .testimonial-name,
+    .footer-title {
+        color: #d4af37 !important;
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+        animation: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        font-weight: 900 !important;
+        text-shadow: none !important;
+    }
+
+    /* Hero section headings should be white */
+    .hero-section h1, 
+    .hero-section h2 {
+        color: white !important;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* Add underlines to section titles for style */
+    .section-title:after,
+    #simple-team h2:after {
+        content: '' !important;
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        background: transparent !important;
+        margin: 0 !important;
+    }
+    </style>
+    <!-- Add this right before </head> -->
+    <style id="absolute-heading-fix">
+        /* Force all headings to be visible with correct colors */
+        body h1, body h2, body h3, body h4, body h5, body h6,
+        body .section-title, body [class*="heading"], 
+        body .hero-title, body .hero-subtitle,
+        body [class*="gradient"], body [class*="shimmer"] {
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            -webkit-text-fill-color: initial !important;
+            
+            animation: none !important;
+            color: #d4af37 !important;
+            font-weight: 900 !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        /* Hero section white headings */
+        body .hero-section h1, body .hero-section h2, body .hero-section h3 {
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        }
+    </style>
+    <!-- Add these styles to the <head> section before the closing </head> tag -->
+    <style id="luxury-heading-styles">
+        /* Luxury Heading Styles */
+        .luxury-heading {
+            display: inline-block;
+            position: relative;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: white;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            overflow: hidden;
+            padding-bottom: 10px;
+        }
+        
+        .luxury-heading .text-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .luxury-heading .text {
+            display: inline-block;
+        }
+        
+        .luxury-heading .letter {
+            display: inline-block;
+            transform-origin: 50% 100%;
+            animation: textReveal 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+            opacity: 0;
+        }
+        
+        .luxury-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, #d4af37, #d4af37, transparent);
+            animation: lineShimmer 3s infinite;
+        }
+        
+        .luxury-heading::before {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .luxury-heading .gold-accent {
+            color: #d4af37;
+            position: relative;
+        }
+        
+        .luxury-heading .gold-accent::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.2), transparent);
+            animation: accentPulse 3s infinite;
+        }
+        
+        @keyframes lineShimmer {
+            0% { transform: translateX(-100%); }
+            40% { transform: translateX(0%); }
+            60% { transform: translateX(0%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes accentPulse {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        @keyframes textReveal {
+            0% {
+                transform: rotateY(90deg);
+                opacity: 0;
+            }
+            40% {
+                transform: rotateY(40deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: rotateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Small gold diamond accents */
+        .diamond-accent {
+            position: relative;
+            display: inline-block;
+            font-size: 12px;
+            color: #d4af37;
+            margin: 0 15px;
+            opacity: 0;
+            animation: fadeIn 1.5s 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        /* Add glow effect */
+        .heading-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            animation: glowPulse 4s infinite;
+        }
+        
+        @keyframes glowPulse {
+            0% { opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0; }
+        }
+    </style>
+
+    <style id="scroll-top-fix">
+        /* Make sure scroll-to-top button is visible with higher z-index */
+        #scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #d4af37;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        #scroll-top-btn.active {
+            opacity: 1;
+            visibility: visible;
+            animation: pulse 2s infinite;
+        }
+        
+        #scroll-top-btn:hover {
+            background-color: #c49b30;
+            transform: translateY(-5px);
+        }
+        
+        #scroll-top-btn i {
+            font-size: 20px;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+    </style>
+
+    <style id="clean-scroll-button">
+        #fixed-scroll-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #d4af37;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            opacity: 1;
+            visibility: visible;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+        
+        #fixed-scroll-btn:hover {
+            transform: translateY(-5px);
+        }
+        
+        #fixed-scroll-btn i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand shimmer" href="index.html">
+                    <span class="brand-text">LUXURY JEWELS</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#collections">Collections</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#simple-team">Our Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#testimonials">Testimonials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link cart-icon" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i><span class="cart-badge" style="display:none;">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <div class="heading-glow"></div>
+                        <h1 class="luxury-heading display-3">
+                            <span class="diamond-accent">â—†</span>
+                            <span class="text-wrapper">
+                                <span class="text">
+                                    <span class="letter">C</span>
+                                    <span class="letter">r</span>
+                                    <span class="letter">a</span>
+                                    <span class="letter">f</span>
+                                    <span class="letter">t</span>
+                                    <span class="letter">e</span>
+                                    <span class="letter">d</span>
+                                </span>
+                                <span class="text">
+                                    <span class="letter gold-accent"> W</span>
+                                    <span class="letter gold-accent">i</span>
+                                    <span class="letter gold-accent">t</span>
+                                    <span class="letter gold-accent">h</span>
+                                </span>
+                                <span class="text">
+                                    <span class="letter"> L</span>
+                                    <span class="letter">e</span>
+                                    <span class="letter">g</span>
+                                    <span class="letter">a</span>
+                                    <span class="letter">c</span>
+                                    <span class="letter">y</span>
+                                </span>
+                            </span>
+                            <span class="diamond-accent">â—†</span>
+                        </h1>
+                    </div>
+                    <h2 class="display-6 text-white mb-4 animate-fadeInUp delay-1">Delivered With Integrity</h2>
+                    <p class="lead text-white mb-5 animate-fadeInUp delay-2">We don't just make jewelry, we craft trust since 1984.</p>
+                    <a href="#collections" class="btn btn-primary btn-lg animate-fadeInUp delay-3 glow-on-hover">Explore Collections</a>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block text-center">
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Luxury Jewelry" class="img-fluid rounded shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections" class="section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Our Premium Collections</h2>
+                    <p class="section-subtitle">Discover our most exquisite pieces crafted with precision and passion</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="collection-card">
+                        <div class="collection-img">
+                            <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gold Chains" class="img-fluid">
+                        </div>
+                        <div class="collection-info">
+                            <h3>Gold Chains</h3>
+                            <p>Exquisite Italian craftsmanship</p>
+                            <a href="#" class="btn-view hover-underline">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="collection-card">
+                        <div class="collection-img">
+                            <img src="https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Diamond Jewelry" class="img-fluid">
+                        </div>
+                        <div class="collection-info">
+                            <h3>Diamond Jewelry</h3>
+                            <p>Brilliance that lasts forever</p>
+                            <a href="#" class="btn-view hover-underline">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="collection-card">
+                        <div class="collection-img">
+                            <img src="https://images.unsplash.com/photo-1589674781759-c21c37956a44?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Bridal Sets" class="img-fluid">
+                        </div>
+                        <div class="collection-info">
+                            <h3>Bridal Sets</h3>
+                            <p>Celebrate eternal love</p>
+                            <a href="#" class="btn-view hover-underline">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-outline-primary glow-on-hover">View All Collections</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Products Section -->
+    <section id="trending" class="trending-products section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Trending Products</h2>
+                    <p class="section-subtitle">Discover our most popular and in-demand jewelry pieces</p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Product 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1598560917807-1bae44bd2be8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Diamond Engagement Ring">
+                            <span class="product-badge">New</span>
+                            <div class="product-actions">
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-heart"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-eye"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Rings</span>
+                            <h3 class="product-title"><a href="javascript:void(0)">Diamond Solitaire Ring</a></h3>
+                            <div class="product-price">
+                                <span class="product-current-price">$1,299.00</span>
+                                <span class="product-old-price">$1,499.00</span>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="product-rating-count">(28)</span>
+                            </div>
+                            <button type="button" class="product-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Gold Necklace">
+                            <span class="product-badge">Sale</span>
+                            <div class="product-actions">
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-heart"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-eye"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Necklaces</span>
+                            <h3 class="product-title"><a href="javascript:void(0)">18K Gold Chain Necklace</a></h3>
+                            <div class="product-price">
+                                <span class="product-current-price">$899.00</span>
+                                <span class="product-old-price">$1,199.00</span>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="product-rating-count">(42)</span>
+                            </div>
+                            <button type="button" class="product-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="img/two.jpg" alt="Pearl Earrings">
+                            <div class="product-actions">
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-heart"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-eye"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Earrings</span>
+                            <h3 class="product-title"><a href="javascript:void(0)">Pearl Drop Earrings</a></h3>
+                            <div class="product-price">
+                                <span class="product-current-price">$599.00</span>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="product-rating-count">(18)</span>
+                            </div>
+                            <button type="button" class="product-btn" aria-label="Add Pearl Drop Earrings to cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="img/one.jpg" alt="Diamond Bracelet">
+                            <span class="product-badge">Hot</span>
+                            <div class="product-actions">
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-heart"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-eye"></i></a>
+                                <a href="javascript:void(0)" class="product-action-btn"><i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-category">Bracelets</span>
+                            <h3 class="product-title"><a href="javascript:void(0)">Diamond Tennis Bracelet</a></h3>
+                            <div class="product-price">
+                                <span class="product-current-price">$1,499.00</span>
+                                <span class="product-old-price">$1,899.00</span>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="product-rating-count">(35)</span>
+                            </div>
+                            <button type="button" class="product-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="products.html" class="btn btn-outline-primary glow-on-hover">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Our Legacy</h2>
+                    <p class="section-subtitle">A Journey of Excellence in Craftsmanship</p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="about-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Luxury Jewelry Craftsmanship" class="img-fluid">
+                        <div class="experience-badge">
+                            <span class="years">25+</span>
+                            <span class="text">Years of Excellence</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <p class="about-text">
+                            For over two decades, Luxury Jewels has been crafting timeless pieces that capture the essence of elegance and sophistication. Our journey began in a small workshop with a big dream - to create jewelry that would be treasured for generations.
+                        </p>
+                        <p class="about-text">
+                            Today, we stand as one of India's premier jewelry houses, known for our meticulous attention to detail, ethical sourcing practices, and innovative designs that blend traditional craftsmanship with contemporary aesthetics.
+                        </p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="about-feature">
+                                    <i class="fas fa-gem"></i>
+                                    <h3>Finest Materials</h3>
+                                    <p>Ethically sourced diamonds and precious metals of the highest quality. We work only with conflict-free gems and certified 18-24K gold.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="about-feature">
+                                    <i class="fas fa-certificate"></i>
+                                    <h3>Certified Quality</h3>
+                                    <p>Every piece comes with authentication and quality assurance. Our jewelry meets international standards with BIS hallmarking.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="#collections" class="btn btn-outline-primary">Explore Our Collections</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SIMPLE TEAM SECTION -->
+    <section id="simple-team">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="section-title">Meet Our Team</h2>
+                    <p class="simple-team-subheading">The passionate artisans and experts behind our exquisite creations</p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Team Member 1 -->
+                <div class="col-lg-4 col-md-6 mb-4" data-delay="0">
+                    <div class="simple-team-card">
+                        <div class="simple-team-image">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Rajesh Kumar">
+                            <div class="simple-team-overlay">
+                                <div class="simple-team-social">
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="simple-team-content">
+                            <h4 class="simple-team-name">Rajesh Kumar</h4>
+                            <p class="simple-team-position">Founder & CEO</p>
+                            <p class="simple-team-description">With over 30 years of experience in jewelry design and manufacturing, Rajesh has guided the company's vision since its founding in 1985.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="col-lg-4 col-md-6 mb-4" data-delay="200">
+                    <div class="simple-team-card">
+                        <div class="simple-team-image">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Priya Sharma">
+                            <div class="simple-team-overlay">
+                                <div class="simple-team-social">
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-instagram"></i></a>
+                                </div>
+                             </div>
+                         </div>
+                        <div class="simple-team-content">
+                            <h4 class="simple-team-name">Priya Sharma</h4>
+                            <p class="simple-team-position">Creative Director</p>
+                            <p class="simple-team-description">Priya brings a fresh perspective to traditional jewelry design. Her innovative approach has led to our most successful collections.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="col-lg-4 col-md-6 mb-4" data-delay="400">
+                    <div class="simple-team-card">
+                        <div class="simple-team-image">
+                            <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Amit Patel">
+                            <div class="simple-team-overlay">
+                                <div class="simple-team-social">
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="pulse-on-hover"><i class="fab fa-instagram"></i></a>
+                                </div>
+                             </div>
+                         </div>
+                        <div class="simple-team-content">
+                            <h4 class="simple-team-name">Amit Patel</h4>
+                            <p class="simple-team-position">Master Craftsman</p>
+                            <p class="simple-team-description">With decades of experience, Amit leads our team of skilled artisans, ensuring each piece meets our exacting standards of quality and beauty.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="features" class="section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Why Source Jewelry From Us?</h2>
+                    <p class="section-subtitle">A perfect combination of ethical sourcing, technology & trust</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box animated-element">
+                        <div class="gemstone-corner top-left"></div>
+                        <div class="gemstone-corner top-right"></div>
+                        <div class="gemstone-corner bottom-left"></div>
+                        <div class="gemstone-corner bottom-right"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3>Competitive Pricing</h3>
+                        <p>Our direct-from-manufacturer model eliminates middlemen, offering wholesale rates with premium quality that enhances your profit margins.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box animated-element delay-1">
+                        <div class="gemstone-corner top-left"></div>
+                        <div class="gemstone-corner top-right"></div>
+                        <div class="gemstone-corner bottom-left"></div>
+                        <div class="gemstone-corner bottom-right"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Expert Craftsmanship</h3>
+                        <p>With 25+ years of heritage artistry, our master jewelers blend traditional techniques with contemporary design for unparalleled quality.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box animated-element delay-2">
+                        <div class="gemstone-corner top-left"></div>
+                        <div class="gemstone-corner top-right"></div>
+                        <div class="gemstone-corner bottom-left"></div>
+                        <div class="gemstone-corner bottom-right"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Ethical Sourcing</h3>
+                        <p>We're committed to responsible jewelry practices with conflict-free diamonds, fair trade gold, and fully transparent supply chains.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box animated-element delay-3">
+                        <div class="gemstone-corner top-left"></div>
+                        <div class="gemstone-corner top-right"></div>
+                        <div class="gemstone-corner bottom-left"></div>
+                        <div class="gemstone-corner bottom-right"></div>
+                        <div class="feature-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h3>Large-Scale Production</h3>
+                        <p>Our state-of-the-art facilities can handle bulk orders with precision, consistency, and timely delivery for retail partners worldwide.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#contact" class="btn btn-outline-primary glow-on-hover">Become a Partner</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">What Our Clients Say</h2>
+                    <p class="section-subtitle">Discover why customers around the world trust and choose our jewelry</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"The craftsmanship of my wedding ring is exceptional. The attention to detail and quality far exceeded my expectations. I couldn't be happier with my purchase."</p>
+                        </div>
+                        <div class="testimonial-user">
+                            <div class="testimonial-avatar">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Sarah Johnson">
+                            </div>
+                            <div class="testimonial-info">
+                                <h4 class="testimonial-name">Sarah Johnson</h4>
+                                <p class="testimonial-position">New York, USA</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"As a jewelry retailer, I've worked with many suppliers, but Luxury Jewels stands out for their consistent quality, reliable delivery, and excellent customer service."</p>
+                        </div>
+                        <div class="testimonial-user">
+                            <div class="testimonial-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="David Chen">
+                            </div>
+                            <div class="testimonial-info">
+                                <h4 class="testimonial-name">David Chen</h4>
+                                <p class="testimonial-position">Toronto, Canada</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"The custom engagement ring I ordered was absolutely perfect. The design process was collaborative, and the final piece captured exactly what I had envisioned."</p>
+                        </div>
+                        <div class="testimonial-user">
+                            <div class="testimonial-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Michael Roberts">
+                            </div>
+                            <div class="testimonial-info">
+                                <h4 class="testimonial-name">Michael Roberts</h4>
+                                <p class="testimonial-position">London, UK</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-pagination">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Our Premium Services</h2>
+                    <p class="section-subtitle">Exceptional care for exceptional jewelry</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Custom Design</h3>
+                        <p>Bring your vision to life with our team of expert designers. From concept to creation, we'll craft a unique piece that tells your story.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Jewelry Repair</h3>
+                        <p>Restore your cherished pieces to their original beauty with our professional repair services, handled with precision and care.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>Jewelry Resizing</h3>
+                        <p>Perfect fit guaranteed. Our experts will resize your rings, bracelets, and necklaces while preserving their beauty and integrity.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-sparkles"></i>
+                        </div>
+                        <h3>Polishing & Cleaning</h3>
+                        <p>Restore the brilliant shine of your jewelry with our professional cleaning and polishing services.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Jewelry Appraisal</h3>
+                        <p>Get expert valuations for insurance, estate planning, or resale purposes with our certified professional appraisers.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Stone Replacement</h3>
+                        <p>Lost a stone? We can source and replace diamonds and gemstones to match your piece perfectly.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section with luxury styling -->
+    <section id="contact" class="contact-section section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Connect With Us</h2>
+                    <p class="section-subtitle">We're just a message away from making your jewelry dreams come true</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="contact-info-wrapper">
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>Visit Our Store</h4>
+                                <p>205, Dariba Kalan, Chandni Chowk</p>
+                                <p>Delhi-110006, (INDIA)</p>
+                                <p><i class="fas fa-clock me-2"></i>Mon - Sat: 10AM - 8PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>Call Us</h4>
+                                <p class="shimmer-text">+91-98998-14144</p>
+                                <p>Support: +91-98998-14145</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>Email Us</h4>
+                                <p class="shimmer-text">contact@luxuryjewels.com</p>
+                                <p>support@luxuryjewels.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item mb-0">
+                            <div class="contact-info-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>WhatsApp</h4>
+                                <p class="shimmer-text">+91-98998-14144</p>
+                                <p><small>Fast response within 2 hours</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="contact-form">
+                        <h3>Send Us a Message</h3>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" id="interest">
+                                            <option value="" selected disabled>I'm interested in...</option>
+                                            <option>Custom Design</option>
+                                            <option>Ready-to-wear Collection</option>
+                                            <option>Bridal Jewelry</option>
+                                            <option>Business Inquiry</option>
+                                            <option>After-sales Service</option>
+                                            <option>International Shipping</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="message" rows="5" placeholder="Tell us about your jewelry needs..." required></textarea>
+                            </div>
+                            
+                            <div class="row align-items-center mt-4">
+                                <div class="col-md-6">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="subscribe">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text">Subscribe to our newsletter</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6 text-md-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        Send Message <i class="fas fa-paper-plane ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="contact-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.2324671717674!2d77.23111021508307!3d28.650923182413037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd1a88dcc589%3A0x24fa43c081dbe51!2sDariba%20Kalan%2C%20Chandni%20Chowk%2C%20New%20Delhi%2C%20Delhi%20110006!5e0!3m2!1sen!2sin!4v1653041051034!5m2!1sen!2sin" width="100%" height="350" style="border:0; border-radius: 10px; box-shadow: var(--box-shadow);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <a href="#" class="footer-logo">
+                        <img src="https://dummyimage.com/180x60/d4af37/212529.png&text=LUXURY+JEWELS" alt="Luxury Jewels">
+                    </a>
+                    <div class="footer-about">
+                        <p>Crafting exquisite jewelry since 1985. Our pieces combine traditional craftsmanship with modern design for timeless elegance.</p>
+                    </div>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-item"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#collections"><i class="fas fa-chevron-right"></i> Collections</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#team"><i class="fas fa-chevron-right"></i> Our Team</a></li>
+                        <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Services</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Custom Designs</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Jewelry Repair</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Private Label</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> B2B Services</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Consultations</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            205, Dariba Kalan, Chandni Chowk Delhi-110006, (INDIA)
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            +91-98998-14144
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            contact@luxuryjewels.com
+                        </div>
+                    </div>
+                    <div class="newsletter mt-4">
+                        <h5 class="mb-3">Subscribe to Newsletter</h5>
+                        <form class="newsletter-form d-flex">
+                            <input type="email" class="form-control me-2" placeholder="Your Email">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p>Â© 2025 Luxury Jewels. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p>Privacy Policy | Terms of Service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Replace the scroll to top button with this one -->
+    <button id="scroll-top-btn" title="Scroll to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quickViewModalLabel">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="quick-view-image">
+                                <img src="" alt="Product Image" class="img-fluid rounded" id="quickViewImage">
+                                <div class="quick-view-badge" id="quickViewBadge"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="quick-view-content">
+                                <h2 class="quick-view-title" id="quickViewTitle"></h2>
+                                <div class="quick-view-category" id="quickViewCategory"></div>
+                                <div class="quick-view-rating" id="quickViewRating"></div>
+                                <div class="quick-view-price">
+                                    <span class="current-price" id="quickViewCurrentPrice"></span>
+                                    <span class="old-price" id="quickViewOldPrice"></span>
+                                </div>
+                                <div class="quick-view-description">
+                                    <p id="quickViewDescription">This stunning piece exemplifies luxury craftsmanship at its finest. Each detail has been meticulously crafted by our master jewelers using only the highest quality materials. This item comes with a certificate of authenticity and our lifetime warranty.</p>
+                                </div>
+                                <div class="quick-view-meta">
+                                    <div class="meta-item">
+                                        <span class="meta-label">SKU:</span>
+                                        <span class="meta-value" id="quickViewSku">JW-1284</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">Availability:</span>
+                                        <span class="meta-value in-stock">In Stock</span>
+                                    </div>
+                                </div>
+                                <div class="quick-view-quantity">
+                                    <div class="quantity-input">
+                                        <button type="button" class="quantity-minus">-</button>
+                                        <input type="text" value="1" class="quantity-number">
+                                        <button type="button" class="quantity-plus">+</button>
+                                    </div>
+                                    <button type="button" class="quick-view-btn" id="quickViewAddToCart">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                                <div class="quick-view-actions">
+                                    <button type="button" class="quick-view-action-btn">
+                                        <i class="fas fa-heart"></i> Add to Wishlist
+                                    </button>
+                                    <button type="button" class="quick-view-action-btn">
+                                        <i class="fas fa-exchange-alt"></i> Compare
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPI QR Code Modal -->
+    <div class="modal fade" id="upiModal" tabindex="-1" aria-labelledby="upiModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="upiModalLabel">Scan to Pay via UPI</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="qr-code-container mb-3">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyy9DNa748DB_FpiWu0XoIUVzv1U0pyMQ8EFQkcMII9IYzGhqIy4-ZCLEEvnqiZUc-Vp4WjEW7S5JpuMWj2XqAtWOjS8Oiqr_XUkfYI2LqQFfPMQgA8-lFvbX10XZQUAFVLQJoQYDUkf5IyB-iZSaZQTzKlbQnppQq07vqFKHgdIB7MF0_KVGmMaRDEg/s320/qr.png" alt="UPI QR Code" class="img-fluid" style="max-width: 250px;">
+                    </div>
+                    <div class="upi-details">
+                        <p class="mb-1"><strong>Amount:</strong> <span id="modal-amount">â‚¹0.00</span></p>
+                        <p class="mb-1"><strong>UPI ID:</strong> <span id="upiId">8920869673@hdfc</span></p>
+                        <p class="mb-3"><strong>Merchant Name:</strong> Luxury Jewels Pvt. Ltd</p>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="8920869673@hdfc" id="upiIdInput" readonly>
+                            <button class="btn btn-primary" type="button" onclick="copyUpiId()">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="alert alert-success copy-alert" role="alert" style="display: none;">
+                            UPI ID copied successfully!
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-primary open-upi-app">Open UPI App</a>
+                    <button type="button" class="btn btn-success verify-upi-payment">Verify Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Appointment Modal -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appointmentModalLabel">Book an Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="appointmentForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentDate" class="form-label">Preferred Date</label>
+                            <input type="date" class="form-control" id="appointmentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentTime" class="form-label">Preferred Time</label>
+                            <input type="time" class="form-control" id="appointmentTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentType" class="form-label">Type of Appointment</label>
+                            <select class="form-select" id="appointmentType" required>
+                                <option value="" selected disabled>Select an option</option>
+                                <option value="jewelry-viewing">Jewelry Viewing</option>
+                                <option value="custom-design">Custom Design Consultation</option>
+                                <option value="repair">Repair Service</option>
+                                <option value="appraisal">Jewelry Appraisal</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Additional Information</label>
+                            <textarea class="form-control" id="message" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Confirm Appointment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Add Particles Container to body -->
+    <div class="particles-container"></div>
+    
+    <!-- Global Particle Effect -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.querySelector('.particles-container');
+            
+            // Create particle effect on mousemove for the entire document
+            document.addEventListener('mousemove', function(e) {
+                // Increase particle creation chance to 50% (from 33%)
+                if (Math.random() > 0.5) {
+                    createParticle(e.clientX, e.clientY);
+                }
+            });
+            
+            // Create particles randomly for ambient effect
+            setInterval(function() {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                createParticle(x, y);
+            }, 300);
+            
+            function createParticle(x, y) {
+                // Create particle with random size - slightly larger
+                const particle = document.createElement('div');
+                const size = Math.random() * 10 + 3; // Increased size
+                
+                particle.classList.add('particle');
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.opacity = Math.random() * 0.6 + 0.4; // Increased opacity
+                particle.style.background = 'rgba(212, 175, 55, 0.4)'; // More gold color
+                particle.style.boxShadow = '0 0 5px rgba(212, 175, 55, 0.6)'; // Add glow
+                
+                // Add to container
+                particlesContainer.appendChild(particle);
+                
+                // Animate and remove
+                setTimeout(() => {
+                    particle.style.transition = `all ${Math.random() * 1.5 + 0.8}s ease`;
+                    particle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px)`;
+                    particle.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    if (particlesContainer.contains(particle)) {
+                        particlesContainer.removeChild(particle);
+                    }
+                }, 2500);
+            }
+        });
+    </script>
+    
+    <!-- Team Section Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation for team cards
+            function animateTeamCards() {
+                const teamCards = document.querySelectorAll('.simple-team-card');
+                teamCards.forEach((card, index) => {
+                    const delay = parseInt(card.parentElement.getAttribute('data-delay') || 0);
+                    setTimeout(() => {
+                        card.classList.add('animated');
+                    }, delay);
+                });
+            }
+            
+            // Check if element is in viewport
+            function isInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Get team section
+            const teamSection = document.getElementById('simple-team');
+            
+            if (teamSection) {
+                // Scroll animation handler
+                function scrollAnimationHandler() {
+                    if (isInViewport(teamSection)) {
+                        animateTeamCards();
+                        window.removeEventListener('scroll', scrollAnimationHandler);
+                    }
+                }
+                
+                // Initial check if team section is already in viewport
+                if (isInViewport(teamSection)) {
+                    animateTeamCards();
+                    } else {
+                    window.addEventListener('scroll', scrollAnimationHandler);
+                }
+                
+                // Team section now uses the global particle effect
+            }
+        });
+    </script>
+
+    <!-- Team Section Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate team cards on scroll
+            const teamCards = document.querySelectorAll('.team-card');
+            
+            function checkScroll() {
+                teamCards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect();
+                    // Check if card is in viewport
+                    if(cardPosition.top < window.innerHeight * 0.9) {
+                        card.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Check on load
+            checkScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkScroll);
+        });
+    </script>
+    
+    <!-- Heading Style Fix Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure all headings have proper styling and no gradients
+            const allHeadings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .section-title, .sliding-gradient-text, .gradient-text, .enhanced-gradient-text, .text-gradient, .simple-team-heading');
+            
+            allHeadings.forEach(heading => {
+                // Remove any classes that might be adding gradient effects
+                heading.classList.remove('gradient-text', 'enhanced-gradient-text', 'text-gradient');
+                
+                // Apply bold styling
+                heading.style.fontWeight = '900';
+                
+                // Ensure no background or animation
+                heading.style.animation = 'none';
+                heading.style.background = 'none';
+                heading.style.webkitBackgroundClip = 'initial';
+                heading.style.backgroundClip = 'initial';
+            });
+        });
+    </script>
+
+    <!-- Animation fix for headings -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Target all headings directly for proper styling
+            const allHeadings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .section-title, .sliding-gradient-text, .gradient-text, .enhanced-gradient-text');
+            
+            // Apply gold color to section headings
+            const sectionHeadings = document.querySelectorAll('.section-title, h2.section-title, section h2, .section-padding h2, #simple-team h2, #features h2, #trending h2, #testimonials h2, #services h2, #contact h2, #about h2, #collections h2');
+            sectionHeadings.forEach(heading => {
+                heading.style.color = '#d4af37';
+                heading.style.fontWeight = '900';
+                heading.style.background = 'none';
+                heading.style.webkitBackgroundClip = 'initial';
+                heading.style.backgroundClip = 'initial';
+                heading.style.animation = 'none';
+                
+                // Add underline if not already present
+                if (!heading.classList.contains('has-underline')) {
+                    heading.classList.add('has-underline');
+                    
+                    // Create underline element
+                    const underline = document.createElement('div');
+                    underline.style.width = '60px';
+                    underline.style.height = '2px';
+                    underline.style.background = '#d4af37';
+                    underline.style.margin = '15px auto 0';
+                    
+                    // Insert after heading
+                    heading.parentNode.insertBefore(underline, heading.nextSibling);
+                }
+            });
+            
+            // Apply white color to hero headings
+            const heroHeadings = document.querySelectorAll('.hero-section h1, .hero-section h2');
+            heroHeadings.forEach(heading => {
+                heading.style.color = 'white';
+                heading.style.fontWeight = '900';
+                heading.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.4)';
+                heading.style.background = 'none';
+                heading.style.webkitBackgroundClip = 'initial';
+                heading.style.backgroundClip = 'initial';
+                heading.style.animation = 'none';
+            });
+            
+            // Fix any remaining gradient headings
+            allHeadings.forEach(heading => {
+                heading.style.animation = 'none';
+                heading.style.background = 'none';
+                heading.style.webkitBackgroundClip = 'initial';
+                heading.style.backgroundClip = 'initial';
+                
+                // Apply appropriate weight
+                heading.style.fontWeight = '800';
+            });
+        });
+    </script>
+
+    <!-- Final heading visibility fix -->
+    <script>
+        // This script ensures all headings are visible with the correct colors
+        document.addEventListener('DOMContentLoaded', function() {
+            // Force all headings to be visible with proper colors
+            function fixHeadingVisibility() {
+                // Regular section headings - gold color
+                document.querySelectorAll('.section-title, section h2, .section-padding h2, #trending h2, #about h2, #features h2, #testimonials h2, #services h2, #contact h2, #simple-team h2, .simple-team-heading').forEach(heading => {
+                    heading.style.color = '#d4af37';
+                    heading.style.background = 'none';
+                    heading.style.webkitBackgroundClip = 'initial';
+                    heading.style.backgroundClip = 'initial';
+                    heading.style.opacity = '1';
+                    heading.style.visibility = 'visible';
+                    heading.style.fontWeight = '900';
+                });
+                
+                // Hero section headings - white color
+                document.querySelectorAll('.hero-section h1, .hero-section h2').forEach(heading => {
+                    heading.style.color = 'white';
+                    heading.style.background = 'none';
+                    heading.style.webkitBackgroundClip = 'initial';
+                    heading.style.backgroundClip = 'initial';
+                    heading.style.opacity = '1';
+                    heading.style.visibility = 'visible';
+                    heading.style.fontWeight = '900';
+                });
+                
+                // Other headings that need to be visible
+                document.querySelectorAll('h3, h4, h5, h6, .product-title, .collection-info h3, .service-card h3, .contact-info-content h4, .about-feature h3').forEach(heading => {
+                    heading.style.color = '#d4af37';
+                    heading.style.background = 'none';
+                    heading.style.webkitBackgroundClip = 'initial';
+                    heading.style.backgroundClip = 'initial';
+                    heading.style.opacity = '1';
+                    heading.style.visibility = 'visible';
+                });
+            }
+            
+            // Run immediately
+            fixHeadingVisibility();
+            
+            // Run again after a small delay to override any other scripts
+            setTimeout(fixHeadingVisibility, 100);
+            
+            // Run again if window is resized (sometimes needed)
+            window.addEventListener('resize', fixHeadingVisibility);
+        });
+    </script>
+    <!-- Add this script before the closing </body> tag -->
+    <script>
+        // Animation for luxury heading letters
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate each letter with a delay
+            const letters = document.querySelectorAll('.luxury-heading .letter');
+            letters.forEach((letter, index) => {
+                letter.style.animationDelay = `${index * 0.08}s`;
+            });
+            
+            // Add particles around the luxury heading
+            const luxuryHeading = document.querySelector('.luxury-heading');
+            if (luxuryHeading) {
+                luxuryHeading.addEventListener('mouseover', function() {
+                    // Create more particles on hover
+                    for (let i = 0; i < 8; i++) {
+                        setTimeout(() => {
+                            createParticleNearHeading();
+                        }, i * 100);
+                    }
+                });
+                
+                // Function to create particles near the heading
+                function createParticleNearHeading() {
+                    const rect = luxuryHeading.getBoundingClientRect();
+                    const x = rect.left + Math.random() * rect.width;
+                    const y = rect.top + Math.random() * rect.height;
+                    
+                    createParticle(x, y);
+                }
+                
+                // Create occasional particles around the heading
+                setInterval(function() {
+                    if (Math.random() > 0.6) {
+                        createParticleNearHeading();
+                    }
+                }, 800);
+            }
+        });
+    </script>
+    <!-- Add scroll-to-top initialization script before the closing </body> tag -->
+    <script>
+        // Simple, foolproof scroll-to-top implementation
+        (function() {
+            // Get the button element
+            var scrollTopBtn = document.getElementById('scroll-top-btn');
+            
+            // Show/hide the button based on scroll position
+            function toggleScrollBtn() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('active');
+                } else {
+                    scrollTopBtn.classList.remove('active');
+                }
+            }
+            
+            // Scroll to top when button is clicked
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                    });
+                });
+                
+            // Add scroll event listener
+            window.addEventListener('scroll', toggleScrollBtn);
+            
+            // Force check on page load
+            toggleScrollBtn();
+            
+            // Double-check after a delay to ensure it's visible
+            setTimeout(toggleScrollBtn, 1000);
+        })();
+    </script>
+
+    <!-- Add this right before closing </body> tag -->
+    <div id="permanent-scroll-button" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background-color: #d4af37; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 99999; opacity: 1; visibility: visible;">
+        <i class="fas fa-arrow-up" style="font-size: 20px;"></i>
+    </div>
+
+    <script>
+        // Directly attach the event listener to the permanent button
+        document.getElementById('permanent-scroll-button').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+    
+    <!-- Include the scroll-to-top script -->
+    <script src="scroll.js"></script>
+
+    <!-- Add this right before the closing </body> tag -->
+    <script>
+    // This creates a scroll-to-top button that appears when scrolling down
+    (function() {
+        // Create the button
+        var scrollBtn = document.createElement('button');
+        scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollBtn.setAttribute('style', 'position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background-color: #d4af37; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999999; font-size: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s ease;');
+    
+        // Add to document
+        document.body.appendChild(scrollBtn);
+    
+        // Show/hide based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                scrollBtn.style.opacity = '1';
+                } else {
+                scrollBtn.style.opacity = '0';
+            }
+        });
+    
+        // Scroll to top when clicked
+        scrollBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+        // Check initial scroll position
+        if (window.pageYOffset > 300) {
+            scrollBtn.style.opacity = '1';
+        }
+    })();
+    </script>
+
+    <script>
+        document.getElementById('fixed-scroll-btn')?.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

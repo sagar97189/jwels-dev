@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Luxury Jewelry</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .checkout-section {
+            padding: 120px 0 80px;
+        }
+        .cart-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        .cart-summary {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 25px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .summary-row.total {
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .checkout-form label {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .payment-method {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            flex: 1;
+            min-width: 120px;
+            transition: all 0.3s;
+        }
+        .payment-method.selected {
+            border-color: #d4af37;
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        .payment-method:hover {
+            border-color: #d4af37;
+        }
+        #orderSuccess {
+            display: none;
+        }
+        .confetti {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #d4af37;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            animation: pulse 2s infinite;
+        }
+        .scroll-to-top:hover {
+            background-color: #c49b30;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand shimmer" href="index.html">
+                    <span class="brand-text">LUXURY JEWELS</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#collections">Collections</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#testimonials">Testimonials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link cart-icon" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i><span class="cart-badge" style="display:none;">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="text-center">Secure Checkout</h1>
+                    <p class="text-center">Complete your purchase securely</p>
+                </div>
+            </div>
+
+            <div id="checkoutPage">
+                <div class="row">
+                    <!-- Checkout Form -->
+                    <div class="col-lg-8">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-body">
+                                <h3 class="mb-4">Shipping Information</h3>
+                                <form id="checkoutForm" class="checkout-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" required aria-required="true">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" required aria-required="true">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email" required aria-required="true">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" required aria-required="true">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" required aria-required="true">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="city" class="form-label">City</label>
+                                            <input type="text" class="form-control" id="city" required aria-required="true">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="state" class="form-label">State/Province</label>
+                                            <input type="text" class="form-control" id="state" required aria-required="true">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="zipCode" class="form-label">Zip/Postal Code</label>
+                                            <input type="text" class="form-control" id="zipCode" required aria-required="true">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="country" class="form-label">Country</label>
+                                        <select class="form-select" id="country" required aria-required="true">
+                                            <option value="" selected disabled>Select Country</option>
+                                            <option value="US">United States</option>
+                                            <option value="IN">India</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="AU">Australia</option>
+                                        </select>
+                                    </div>
+
+                                    <h3 class="mt-5 mb-4">Payment Information</h3>
+                                    
+                                    <div class="mb-3">
+                                        <label id="paymentMethodLabel" class="form-label">Payment Method</label>
+                                        <div class="payment-methods" role="radiogroup" aria-labelledby="paymentMethodLabel">
+                                            <div class="payment-method" role="radio" tabindex="0" aria-checked="false" data-method="credit-card">
+                                                <i class="fas fa-credit-card mb-2" style="font-size: 24px;"></i>
+                                                <div>Credit Card</div>
+                                            </div>
+                                            <div class="payment-method" role="radio" tabindex="0" aria-checked="false" data-method="paypal">
+                                                <i class="fab fa-paypal mb-2" style="font-size: 24px;"></i>
+                                                <div>PayPal</div>
+                                            </div>
+                                            <div class="payment-method" role="radio" tabindex="0" aria-checked="false" data-method="upi">
+                                                <i class="fas fa-mobile-alt mb-2" style="font-size: 24px;"></i>
+                                                <div>UPI</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="creditCardFields">
+                                        <div class="mb-3">
+                                            <label for="cardNumber" class="form-label">Card Number</label>
+                                            <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="expiry" class="form-label">Expiry Date</label>
+                                                <input type="text" class="form-control" id="expiry" placeholder="MM/YY">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="cvv" class="form-label">CVV</label>
+                                                <input type="text" class="form-control" id="cvv" placeholder="XXX">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="nameOnCard" class="form-label">Name on Card</label>
+                                            <input type="text" class="form-control" id="nameOnCard">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input" type="checkbox" id="saveInfo">
+                                        <label class="form-check-label" for="saveInfo">
+                                            Save this information for next time
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="col-lg-4">
+                        <div class="cart-summary sticky-top" style="top: 100px;">
+                            <h3 class="mb-4">Order Summary</h3>
+                            <div id="cartItems">
+                                <!-- Cart items will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="summary-row mt-4">
+                                <span>Subtotal</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span id="shipping">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax</span>
+                                <span id="tax">$0.00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span id="total">$0.00</span>
+                            </div>
+                            
+                            <button type="button" id="placeOrderBtn" class="btn btn-primary w-100 mt-4" aria-label="Place your order">
+                                Place Order
+                            </button>
+                            
+                            <p class="text-center mt-3 small">
+                                <i class="fas fa-lock me-1"></i> Secure Checkout
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Success -->
+            <div id="orderSuccess" class="text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-check-circle" style="font-size: 64px; color: #4CAF50;"></i>
+                </div>
+                <h2 class="mb-3">Thank You for Your Order!</h2>
+                <p class="mb-4">Your order has been successfully placed with order ID: <span id="orderId" class="fw-bold">ORD-123456</span></p>
+                
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5>Order Details</h5>
+                                <div id="orderDetailsSummary">
+                                    <!-- Order details will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p>
+                    A confirmation email has been sent to <span id="confirmationEmail" class="fw-bold">your email address</span>
+                </p>
+                
+                <div class="mt-4">
+                    <a href="index.html" class="btn btn-outline-primary me-3">Continue Shopping</a>
+                    <a href="#" id="downloadReceiptBtn" class="btn btn-primary">Download Receipt</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <a href="#" class="footer-logo">
+                        <img src="https://dummyimage.com/180x60/d4af37/212529.png&text=LUXURY+JEWELS" alt="Luxury Jewels">
+                    </a>
+                    <div class="footer-about">
+                        <p>Crafting exquisite jewelry since 1985. Our pieces combine traditional craftsmanship with modern design for timeless elegance.</p>
+                    </div>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-item"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="index.html#collections"><i class="fas fa-chevron-right"></i> Collections</a></li>
+                        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Services</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Custom Designs</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Jewelry Repair</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Private Label</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> B2B Services</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Consultations</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            205, Dariba Kalan, Chandni Chowk Delhi-110006, (INDIA)
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            +91-98998-14144
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            contact@luxuryjewels.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p>© 2025 Luxury Jewels. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p>Privacy Policy | Terms of Service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top Button -->
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll to top functionality
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('active');
+                } else {
+                    scrollToTopBtn.classList.remove('active');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Load cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('luxuryJewelsCart')) || [];
+            updateCartBadge();
+            
+            // Populate cart items
+            const cartItemsContainer = document.getElementById('cartItems');
+            let subtotal = 0;
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-center py-3">Your cart is empty</p>';
+                document.getElementById('placeOrderBtn').disabled = true;
+            } else {
+                cart.forEach(item => {
+                    const itemPrice = parseFloat(item.price);
+                    subtotal += itemPrice;
+                    
+                    const cartItemHTML = `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">${item.name}</h6>
+                                <p class="small text-muted mb-0">${item.category}</p>
+                                <p class="fw-bold mb-0">$${itemPrice.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.innerHTML += cartItemHTML;
+                });
+            }
+            
+            // Calculate totals
+            const shipping = subtotal > 0 ? 15 : 0;
+            const tax = subtotal * 0.08;
+            const total = subtotal + shipping + tax;
+            
+            // Update summary
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `$${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            // Payment method selection
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    // Remove selected class from all methods
+                    paymentMethods.forEach(m => {
+                        m.classList.remove('selected');
+                        m.setAttribute('aria-checked', 'false');
+                    });
+                    
+                    // Add selected class to clicked method
+                    this.classList.add('selected');
+                    this.setAttribute('aria-checked', 'true');
+                    
+                    // Show/hide credit card fields
+                    const creditCardFields = document.getElementById('creditCardFields');
+                    if (this.dataset.method === 'credit-card') {
+                        creditCardFields.style.display = 'block';
+                    } else {
+                        creditCardFields.style.display = 'none';
+                    }
+                });
+                
+                // Keyboard support for payment method selection
+                method.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+            
+            // Place order button
+            document.getElementById('placeOrderBtn').addEventListener('click', function() {
+                // Validate form
+                const form = document.getElementById('checkoutForm');
+                if (form.checkValidity()) {
+                    // Generate random order ID
+                    const orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
+                    document.getElementById('orderId').textContent = orderId;
+                    
+                    // Set confirmation email
+                    const email = document.getElementById('email').value;
+                    document.getElementById('confirmationEmail').textContent = email;
+                    
+                    // Populate order details
+                    const orderDetailsContainer = document.getElementById('orderDetailsSummary');
+                    orderDetailsContainer.innerHTML = `
+                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                        <p><strong>Items:</strong> ${cart.length}</p>
+                        <p><strong>Total:</strong> $${total.toFixed(2)}</p>
+                        <p><strong>Shipping Address:</strong><br>
+                        ${document.getElementById('firstName').value} ${document.getElementById('lastName').value}<br>
+                        ${document.getElementById('address').value}<br>
+                        ${document.getElementById('city').value}, ${document.getElementById('state').value} ${document.getElementById('zipCode').value}<br>
+                        ${document.getElementById('country').options[document.getElementById('country').selectedIndex].text}
+                        </p>
+                    `;
+                    
+                    // Show success page
+                    document.getElementById('checkoutPage').style.display = 'none';
+                    document.getElementById('orderSuccess').style.display = 'block';
+                    
+                    // Clear cart
+                    localStorage.removeItem('luxuryJewelsCart');
+                    updateCartBadge();
+                    
+                    // Show confetti celebration
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                } else {
+                    // Trigger browser's form validation
+                    form.reportValidity();
+                }
+            });
+            
+            // Download receipt button
+            document.getElementById('downloadReceiptBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Receipt download functionality would be implemented here.');
+            });
+            
+            // Function to update cart badge
+            function updateCartBadge() {
+                const cart = JSON.parse(localStorage.getItem('luxuryJewelsCart')) || [];
+                const badge = document.querySelector('.cart-badge');
+                
+                if (badge) {
+                    badge.textContent = cart.length;
+                    badge.style.display = cart.length > 0 ? 'flex' : 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

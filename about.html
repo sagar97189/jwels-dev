@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Luxury Jewels</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* About Page Specific Styles */
+        .about-hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%);
+            animation: pulse 4s infinite;
+        }
+        
+        /* Global Particle Container for About page */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        /* Remove all gradient animations */
+        @keyframes slidingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Remove all animation references from heading styles */
+        .sliding-gradient-text {
+            color: #fff;
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+            animation: none !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+        }
+        
+        .sliding-gradient-text:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        /* Update to ensure all section titles are properly styled */
+        .section-title, h2.section-title, div.section-title, div.section-title h2 {
+            position: relative;
+            margin-bottom: 25px;
+            font-weight: 900 !important;
+            color: #333 !important;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            animation: none !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+        }
+        
+        .section-title:after, h2.section-title:after, div.section-title:after, div.section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        /* Ensure no other elements have gradients */
+        h1, h2, h3, h4, h5, h6 {
+            animation: none !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+        }
+        
+        /* Specifically target any previously styled headings */
+        .simple-team-heading, .text-gradient, .enhanced-gradient-text, .gradient-text {
+            animation: none !important;
+            background: none !important;
+            color: #333 !important;
+            font-weight: 800 !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+        }
+        
+        /* Style for section subtitles */
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .about-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .about-hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .about-section {
+            padding: 100px 0;
+            background: #f9f9f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent);
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            margin-bottom: 30px;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #d4af37, #f8d568, #d4af37);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-icon {
+            width: 80px;
+            height: 80px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .about-icon i {
+            font-size: 32px;
+            color: #d4af37;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover .about-icon {
+            background: #d4af37;
+            transform: rotateY(180deg);
+        }
+
+        .about-card:hover .about-icon i {
+            color: white;
+            transform: rotateY(-180deg);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 50px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #d4af37;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #d4af37;
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 50%;
+            padding-left: 50px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            left: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 50%;
+            padding-right: 50px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            right: -10px;
+        }
+
+        .team-section {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-image {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+        
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-card:hover .team-image img {
+            transform: scale(1.1);
+        }
+        
+        .team-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(212, 175, 55, 0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+        
+        .team-social {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .team-social a {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            transition: all 0.3s ease;
+        }
+        
+        .team-social a:hover {
+            background: #d4af37;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .values-section {
+            padding: 100px 0;
+            background: #f9f9f9;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .value-icon i {
+            font-size: 32px;
+            color: #d4af37;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover .value-icon {
+            background: #d4af37;
+            transform: rotateY(180deg);
+        }
+
+        .value-card:hover .value-icon i {
+            color: white;
+            transform: rotateY(-180deg);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 991px) {
+            .about-hero h1 {
+                font-size: 3rem;
+                font-weight: 800;
+            }
+            
+            .about-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-weight: 800;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                padding-left: 50px;
+                padding-right: 30px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -10px;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .about-hero {
+                height: 50vh;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.5rem;
+                font-weight: 800;
+            }
+            
+            .about-section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Parallax Effect */
+        .parallax-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        /* Text Reveal Animation */
+        .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: transform 0.5s, opacity 0.5s;
+            transition-delay: calc(var(--char-index) * 0.05s);
+        }
+        
+        .char.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Enhanced and Fixed Flip Card Styles */
+        .flip-card {
+            perspective: 1000px;
+            width: 100%;
+            height: 450px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .flip-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        
+        /* Apply flip on hover for desktop and on touch for mobile */
+        @media (min-width: 992px) {
+            .flip-card:hover .flip-card-inner {
+                transform: rotateY(180deg);
+            }
+        }
+        
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #ffffff, #f5f5f5);
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .flip-card-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .flip-card:hover .flip-card-front::before {
+            opacity: 1;
+        }
+        
+        .flip-card-back {
+            background: linear-gradient(135deg, #111, #222);
+            color: white;
+            transform: rotateY(180deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .flip-card-back::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(212, 175, 55, 0.15), transparent);
+        }
+        
+        .flip-card-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #d4af37;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .flip-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .flip-card:hover .flip-card-image img {
+            transform: scale(1.1);
+        }
+        
+        .flip-card-content {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .flip-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .flip-card-subtitle {
+            font-size: 1rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .flip-card-back h3 {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .flip-card-back h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: #d4af37;
+        }
+        
+        .flip-card-back p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .flip-card-social {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        
+        .flip-card-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.8);
+            color: #222;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .flip-card-social a:hover {
+            transform: translateY(-5px);
+            background: #d4af37;
+            color: #000;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .flip-card {
+                height: 400px;
+            }
+            
+            .flip-card-title {
+                font-size: 1.3rem;
+            }
+            
+            .flip-card-back p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .flip-card {
+                height: 380px;
+            }
+            
+            .flip-card-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        /* Animation for flip cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Touch indicator for mobile */
+        @media (max-width: 991px) {
+            .flip-card::after {
+                content: '';
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                width: 30px;
+                height: 30px;
+                background-color: rgba(212, 175, 55, 0.7);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+                animation: pulse 2s infinite;
+            }
+            
+            .flip-card::before {
+                content: '\f021';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                width: 30px;
+                height: 30px;
+                color: #fff;
+                z-index: 11;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .flip-card.flipped::before {
+                content: '\f00d';
+            }
+        }
+    </style>
+    
+    <script>
+        // Initialize when document is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize flip cards
+            initFlipCards();
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+            
+            // Disable gradient text effects
+            fixGradientTexts();
+        });
+        
+        // Function to initialize flip cards
+        function initFlipCards() {
+            const flipCards = document.querySelectorAll('.flip-card');
+            
+            // Add click event for mobile touch
+            flipCards.forEach(card => {
+                // For touch devices
+                card.addEventListener('touchstart', function(e) {
+                    // Only for mobile devices
+                    if (window.innerWidth < 992) {
+                        e.preventDefault();
+                        this.classList.toggle('flipped');
+                    }
+                }, {passive: false});
+                
+                // For desktop hover fallback click
+                card.addEventListener('click', function(e) {
+                    // Only for desktop devices fallback
+                    if (window.innerWidth >= 992 && !e.target.closest('a')) {
+                        this.classList.toggle('flipped');
+                    }
+                });
+            });
+        }
+        
+        // Function to handle scroll animations
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Initial check on load
+            animatedElements.forEach(el => {
+                if (isInViewport(el)) {
+                    el.classList.add('visible');
+                }
+            });
+            
+            // Check on scroll
+            window.addEventListener('scroll', function() {
+                animatedElements.forEach(el => {
+                    if (isInViewport(el)) {
+                        el.classList.add('visible');
+                    }
+                });
+            });
+        }
+        
+        // Fix for any gradient text issues
+        function fixGradientTexts() {
+            // Find all elements with gradient or shimmer classes
+            const gradientTexts = document.querySelectorAll('[class*="gradient"], [class*="shimmer"]');
+            
+            // Remove background properties and set color directly
+            gradientTexts.forEach(el => {
+                if (el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'H3') {
+                    el.style.background = 'none';
+                    el.style.webkitBackgroundClip = 'unset';
+                    el.style.webkitTextFillColor = '#d4af37';
+                    el.style.backgroundSize = 'unset';
+                    el.style.animation = 'none';
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <!-- Add Particles Container to body -->
+    <div class="particles-container"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand shimmer" href="index.html">
+                    <span class="brand-text">LUXURY JEWELS</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#collections">Collections</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#testimonials">Testimonials</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link cart-icon" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i><span class="cart-badge" style="display:none;">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1 class="sliding-gradient-text">Our Heritage of Excellence</h1>
+            <p>Crafting timeless luxury jewelry with passion, precision and uncompromising quality since 1985</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">The Luxury Jewels Story</h2>
+                    <p class="section-subtitle">A legacy of craftsmanship passed down through generations</p>
+                </div>
+                </div>
+
+            <div class="row g-4">
+                <!-- About Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="about-card animate-on-scroll">
+                        <div class="about-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Our Heritage</h3>
+                        <p>Founded in 1985 by master jeweler Rajesh Kumar, Luxury Jewels began as a small atelier in the heart of Delhi's historic jewelry district. What started as a modest family business has grown into one of India's most respected luxury jewelry houses.</p>
+                    </div>
+                </div>
+
+                <!-- About Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="about-card animate-on-scroll" data-delay="200">
+                        <div class="about-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Our Craftsmanship</h3>
+                        <p>Every piece we create is handcrafted by our team of skilled artisans who combine traditional techniques with modern innovation. Our commitment to perfection means that only the finest ethically-sourced materials make it into our collections.</p>
+                    </div>
+                </div>
+
+                <!-- About Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="about-card animate-on-scroll" data-delay="400">
+                        <div class="about-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Our Promise</h3>
+                        <p>We believe that luxury jewelry should be more than beautiful – it should tell a story, create a connection, and stand the test of time. With every creation, we promise uncompromising quality, exceptional design, and personalized service.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section section-padding">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Our Journey</h2>
+                    <p class="section-subtitle">Milestones that shaped Luxury Jewels into what it is today</p>
+                </div>
+            </div>
+
+            <div class="timeline">
+                        <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content animate-on-scroll">
+                        <h3>1985</h3>
+                        <h4>The Beginning</h4>
+                        <p>Luxury Jewels was founded in Delhi's historic Chandni Chowk by Rajesh Kumar, a third-generation jeweler with a vision to blend traditional craftsmanship with contemporary design.</p>
+                            </div>
+                            </div>
+                        
+                        <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-content animate-on-scroll">
+                        <h3>1995</h3>
+                        <h4>Expansion</h4>
+                        <p>After a decade of growth, we opened our flagship store in South Delhi, introducing our creations to a wider audience and establishing partnerships with international suppliers of premium gemstones.</p>
+                            </div>
+                            </div>
+                        
+                        <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-content animate-on-scroll">
+                        <h3>2005</h3>
+                        <h4>Innovation</h4>
+                        <p>We pioneered the use of advanced 3D modeling and CAD technology in our design process, allowing for greater precision and the ability to create increasingly complex and innovative pieces.</p>
+                            </div>
+                            </div>
+                        
+                        <!-- Timeline Item 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-content animate-on-scroll">
+                        <h3>2010</h3>
+                        <h4>Global Recognition</h4>
+                        <p>Our signature "Lotus Collection" was featured in Vogue India and earned international acclaim, leading to collaborations with renowned fashion designers and celebrities.</p>
+                            </div>
+                            </div>
+                        
+                        <!-- Timeline Item 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-content animate-on-scroll">
+                        <h3>2020</h3>
+                        <h4>Digital Transformation</h4>
+                        <p>We embraced e-commerce and virtual consultations, making our exclusive collections accessible to clients worldwide while maintaining our commitment to personalized service.</p>
+                            </div>
+                            </div>
+                        
+                        <!-- Timeline Item 6 -->
+                <div class="timeline-item">
+                    <div class="timeline-content animate-on-scroll">
+                        <h3>Today</h3>
+                        <h4>Looking Forward</h4>
+                        <p>While honoring our heritage, we continue to evolve and innovate, focusing on sustainable practices and creating jewelry that will be treasured for generations to come.</p>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 text-center animate-on-scroll">
+                    <div class="section-title">
+                        <h2>Meet Our Master Artisans</h2>
+                </div>
+                    <p>With over 70 years of combined experience, our artisans bring unparalleled expertise to every piece of jewelry we create.</p>
+            </div>
+                        </div>
+            <div class="row mt-5">
+                <!-- Team Member 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="flip-card animate-on-scroll" data-delay="100">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="flip-card-image">
+                                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Elena Ivanova">
+                    </div>
+                                <div class="flip-card-content">
+                                    <h4 class="flip-card-title">Elena Ivanova</h4>
+                                    <p class="flip-card-subtitle">Master Goldsmith</p>
+                </div>
+                        </div>
+                            <div class="flip-card-back">
+                                <h3>Elena Ivanova</h3>
+                                <p>With 25 years of experience, Elena specializes in traditional goldsmithing techniques passed down through generations. Her meticulous attention to detail has earned her international recognition.</p>
+                                <p>Trained in St. Petersburg, she brings classic European craftsmanship to every piece she creates, specializing in intricate filigree work and complex metal forming.</p>
+                                <div class="flip-card-social">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="flip-card animate-on-scroll" data-delay="200">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="flip-card-image">
+                                    <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Marcus Chen">
+                        </div>
+                                <div class="flip-card-content">
+                                    <h4 class="flip-card-title">Marcus Chen</h4>
+                                    <p class="flip-card-subtitle">Gem Specialist</p>
+                    </div>
+                </div>
+                            <div class="flip-card-back">
+                                <h3>Marcus Chen</h3>
+                                <p>With 18 years in gemology, Marcus has developed an expert eye for selecting the finest gemstones. He travels globally to source rare and exceptional stones for our premium collections.</p>
+                                <p>Certified by the Gemological Institute of America, his expertise in diamond grading and colored gemstone identification ensures that only the highest quality gems make it into our pieces.</p>
+                                <div class="flip-card-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+                    </div>
+                
+                <!-- Team Member 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="flip-card animate-on-scroll" data-delay="300">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="flip-card-image">
+                                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Sofia Rodriguez">
+                                </div>
+                                <div class="flip-card-content">
+                                    <h4 class="flip-card-title">Sofia Rodriguez</h4>
+                                    <p class="flip-card-subtitle">Design Director</p>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Sofia Rodriguez</h3>
+                                <p>A graduate of the Paris School of Jewelry Arts, Sofia brings contemporary vision while honoring timeless design principles. Her award-winning designs have been featured in luxury publications worldwide.</p>
+                                <p>With a background in fine art and architecture, Sofia creates pieces that balance aesthetic beauty with wearable comfort, resulting in jewelry that becomes an extension of the wearer.</p>
+                                <div class="flip-card-social">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-behance"></i></a>
+                                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="section-title">Our Core Values</h2>
+                    <p class="section-subtitle">The principles that guide everything we do</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Value 1 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>Excellence</h3>
+                        <p>We pursue perfection in every facet of our craft, from design to execution, never compromising on quality or attention to detail.</p>
+                    </div>
+                </div>
+                
+                <!-- Value 2 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="value-card animate-on-scroll" data-delay="200">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Passion</h3>
+                        <p>Our love for jewelry making drives us to continually learn, innovate, and push the boundaries of what's possible in our craft.</p>
+                    </div>
+                </div>
+                
+                <!-- Value 3 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="value-card animate-on-scroll" data-delay="400">
+                        <div class="value-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Sustainability</h3>
+                        <p>We're committed to ethical sourcing and responsible practices that respect both the environment and the communities where we operate.</p>
+                            </div>
+                        </div>
+
+                <!-- Value 4 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Integrity</h3>
+                        <p>Trust is at the heart of our business. We believe in transparency, honesty, and building lasting relationships with our clients and partners.</p>
+                    </div>
+                </div>
+                
+                <!-- Value 5 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="value-card animate-on-scroll" data-delay="200">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>While respecting traditional techniques, we continuously explore new methods and technologies to create jewelry that's both timeless and contemporary.</p>
+                            </div>
+                        </div>
+
+                <!-- Value 6 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="value-card animate-on-scroll" data-delay="400">
+                        <div class="value-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Service</h3>
+                        <p>We go above and beyond to provide an exceptional experience, ensuring each client feels valued and understood from the first consultation to after-sale care.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <a href="#" class="footer-logo">
+                        <img src="https://dummyimage.com/180x60/d4af37/212529.png&text=LUXURY+JEWELS" alt="Luxury Jewels">
+                    </a>
+                    <div class="footer-about">
+                        <p>Crafting exquisite jewelry since 1985. Our pieces combine traditional craftsmanship with modern design for timeless elegance.</p>
+                    </div>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-item"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="index.html#collections"><i class="fas fa-chevron-right"></i> Collections</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Services</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Custom Designs</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Jewelry Repair</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Private Label</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> B2B Services</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Consultations</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            205, Dariba Kalan, Chandni Chowk Delhi-110006, (INDIA)
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            +91-98998-14144
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            contact@luxuryjewels.com
+                        </div>
+                    </div>
+                    <div class="newsletter mt-4">
+                        <h5 class="mb-3">Subscribe to Newsletter</h5>
+                        <form class="newsletter-form d-flex">
+                            <input type="email" class="form-control me-2" placeholder="Your Email">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p>© 2025 Luxury Jewels. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p>Privacy Policy | Terms of Service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top Button -->
+    <div class="scroll-to-top">
+        <i class="fas fa-rocket"></i>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Animation on Scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation on scroll
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            
+            function checkScroll() {
+                animateElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    
+                    if (elementTop < window.innerHeight && elementBottom > 0) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Check on load
+            checkScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkScroll);
+            
+            // Initialize flip cards (ensure proper rendering)
+            const flipCards = document.querySelectorAll('.flip-card');
+            flipCards.forEach(card => {
+                // Force a reflow for the flip cards to ensure they display correctly
+                card.offsetHeight; // This triggers a reflow
+                
+                // Add event listeners for flip cards
+                card.addEventListener('mouseenter', function() {
+                    this.classList.add('hover-effect');
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.classList.remove('hover-effect');
+                });
+            });
+            
+            // Parallax Effect
+            const parallaxElements = document.querySelectorAll('.parallax-bg');
+            let scrollPosition = window.pageYOffset;
+            
+            function parallaxEffect() {
+                const currentScrollPosition = window.pageYOffset;
+                const scrollDifference = scrollPosition - currentScrollPosition;
+                
+                parallaxElements.forEach(element => {
+                    element.style.transform = `translateY(${scrollDifference * 0.3}px)`;
+                });
+                
+                scrollPosition = currentScrollPosition;
+                requestAnimationFrame(parallaxEffect);
+            }
+            
+            parallaxEffect();
+            
+            // Text Reveal Animation
+            const textElements = document.querySelectorAll('.text-reveal');
+            
+            textElements.forEach(element => {
+                const text = element.textContent;
+                element.textContent = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.style.setProperty('--char-index', i);
+                    span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+                    element.appendChild(span);
+                }
+                
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const chars = entry.target.querySelectorAll('.char');
+                            chars.forEach(char => {
+                                char.classList.add('revealed');
+                            });
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(element);
+            });
+            
+            // Mouse Follow Effect
+            const mouseFollowElements = document.querySelectorAll('.mouse-follow');
+            
+            document.addEventListener('mousemove', e => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                
+                mouseFollowElements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    
+                    const moveX = (mouseX - centerX) / 20;
+                    const moveY = (mouseY - centerY) / 20;
+                    
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    }
+                });
+            });
+            
+            // Global Particle Effect
+            document.addEventListener('mousemove', function(e) {
+                // Only create particle with 33% chance to avoid too many particles
+                if (Math.random() > 0.67) {
+                    createParticle(e.clientX, e.clientY);
+                }
+            });
+            
+            // Create particles randomly for ambient effect
+            setInterval(function() {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                createParticle(x, y);
+            }, 300);
+            
+            function createParticle(x, y) {
+                const particlesContainer = document.querySelector('.particles-container');
+                if (!particlesContainer) return;
+                
+                // Create particle with random size
+                const particle = document.createElement('div');
+                const size = Math.random() * 8 + 2;
+                
+                particle.classList.add('particle');
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                // Add to container
+                particlesContainer.appendChild(particle);
+                
+                // Animate and remove
+                setTimeout(() => {
+                    particle.style.transition = `all ${Math.random() * 2 + 1}s ease`;
+                    particle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px)`;
+                    particle.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    if (particlesContainer.contains(particle)) {
+                        particlesContainer.removeChild(particle);
+                    }
+                }, 3000);
+            }
+            
+            // Initialize flip cards
+            document.addEventListener('DOMContentLoaded', function() {
+                // Handle scroll animations
+                const animateElements = document.querySelectorAll('.animate-on-scroll');
+                
+                // Check if element is in viewport
+                function isInViewport(element) {
+                    const rect = element.getBoundingClientRect();
+                    return (
+                        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                        rect.bottom >= 0
+                    );
+                }
+                
+                // Handle scroll animation
+                function handleScrollAnimation() {
+                    animateElements.forEach(element => {
+                        if (isInViewport(element)) {
+                            // Get delay attribute or default to 0
+                            const delay = element.dataset.delay || 0;
+                            setTimeout(() => {
+                                element.classList.add('visible');
+                            }, delay);
+                        }
+                    });
+                }
+                
+                // Initial check and scroll listener
+                handleScrollAnimation();
+                window.addEventListener('scroll', handleScrollAnimation);
+                
+                // Handle touch events for flip cards on mobile
+                const flipCards = document.querySelectorAll('.flip-card');
+                
+                flipCards.forEach(card => {
+                    card.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        this.classList.toggle('active');
+                        
+                        // Remove active class from other cards
+                        flipCards.forEach(otherCard => {
+                            if (otherCard !== card) {
+                                otherCard.classList.remove('active');
+                            }
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+
+    <!-- Footer script -->
+    <script>
+        // Scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle animations on scroll
+            const animateElements = document.querySelectorAll('.animate-on-scroll, .flip-card');
+            
+            function checkIfInView() {
+                animateElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                    
+                    if (isVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Initial check
+            checkIfInView();
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkIfInView);
+            
+            // Add touch functionality for flip cards on mobile
+            const flipCards = document.querySelectorAll('.flip-card');
+            
+            // Function to handle flip cards for mobile and desktop
+            function setupFlipCards() {
+                const isMobile = window.innerWidth < 992;
+                
+                flipCards.forEach(card => {
+                    // Remove previous event listeners (if any)
+                    const cardClone = card.cloneNode(true);
+                    card.parentNode.replaceChild(cardClone, card);
+                    
+                    if (isMobile) {
+                        // On mobile: toggle flip on tap/click
+                        cardClone.addEventListener('click', function(e) {
+                            // Prevent flip when clicking social links
+                            if (e.target.tagName === 'A' || e.target.tagName === 'I') {
+                                e.stopPropagation();
+                                return;
+                            }
+                            
+                            // Remove flipped class from all other cards
+                            flipCards.forEach(otherCard => {
+                                if (otherCard !== this) {
+                                    otherCard.classList.remove('flipped');
+                                }
+                            });
+                            
+                            // Toggle flipped class on this card
+                            this.classList.toggle('flipped');
+                        });
+                    } else {
+                        // On desktop: handle hover if needed (CSS already handles hover)
+                        // This is just to ensure any previously set click events are removed
+                    }
+                });
+            }
+            
+            // Initial setup
+            setupFlipCards();
+            
+            // Update on window resize
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(setupFlipCards, 250);
+            });
+            
+            // Ensure all headings have proper styling and no gradients
+            const allHeadings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            allHeadings.forEach(heading => {
+                // Remove any classes that might be adding gradient effects
+                heading.classList.remove('gradient-text', 'enhanced-gradient-text', 'text-gradient');
+                
+                // Apply bold styling
+                heading.style.fontWeight = '800';
+                
+                // Ensure no background or animation
+                heading.style.animation = 'none';
+                heading.style.background = 'none';
+                heading.style.webkitBackgroundClip = 'initial';
+                heading.style.backgroundClip = 'initial';
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,26 @@
+{
+  "name": "luxury-jewelry-store",
+  "version": "1.0.0",
+  "description": "A premium jewelry e-commerce website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "http-server -p 8080 -c-1",
+    "share": "npx localtunnel --port 8080",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jewelry",
+    "e-commerce",
+    "gold",
+    "premium"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "localtunnel": "^2.0.2"
+  }
+} 

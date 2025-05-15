@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Details | Luxury Jewelry</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .shipping-section {
+            padding-top: 120px;
+        }
+        .checkout-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .checkout-card-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            color: var(--dark-color);
+        }
+        .form-label {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+        }
+        .continue-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 30px;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        .continue-btn:hover {
+            transform: translateY(-3px);
+        }
+        .order-summary {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+        }
+        .summary-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            color: var(--dark-color);
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .summary-item:last-of-type {
+            font-weight: 600;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .summary-products {
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .summary-product {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .summary-product:last-child {
+            border-bottom: none;
+        }
+        .summary-product-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .summary-product-info {
+            flex: 1;
+        }
+        .summary-product-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+        .summary-product-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .summary-product-quantity {
+            font-size: 13px;
+            color: #666;
+        }
+        .back-btn {
+            color: var(--dark-color);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+        .back-btn:hover {
+            color: var(--primary-color);
+        }
+        .back-btn i {
+            margin-right: 8px;
+        }
+        .checkout-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #777;
+            border: 2px solid #e0e0e0;
+        }
+        .step-text {
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+        }
+        .step.active .step-number {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .step.active .step-text {
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        .step.completed .step-number {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+        .step-line {
+            height: 2px;
+            background: #e0e0e0;
+            flex: 1;
+            z-index: 0;
+            position: relative;
+            top: -20px;
+        }
+        .steps-progress {
+            height: 2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            position: absolute;
+            top: 17px;
+            left: 17px;
+            width: 0;
+            z-index: 0;
+            transition: width 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand shimmer" href="index.html">
+                    <span class="brand-text">LUXURY JEWELS</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#collections">Collections</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link cart-icon" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Shipping Section -->
+    <section class="shipping-section section-padding">
+        <div class="container">
+            <h1 class="mb-4">Shipping Details</h1>
+            
+            <div class="checkout-steps mb-4">
+                <div class="step completed">
+                    <span class="step-number"><i class="fas fa-check"></i></span>
+                    <span class="step-text">Shopping Cart</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step active">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Shipping Details</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Payment</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Confirmation</span>
+                </div>
+                <div class="steps-progress"></div>
+            </div>
+            
+            <a href="cart.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Cart
+            </a>
+            
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="checkout-card">
+                        <h3 class="checkout-card-title">Contact Information</h3>
+                        <form id="shipping-form">
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="firstName" class="form-label">First Name*</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name*</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="email" class="form-label">Email Address*</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number*</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                            </div>
+                            
+                            <h3 class="checkout-card-title mt-4">Shipping Address</h3>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Street Address*</label>
+                                <input type="text" class="form-control" id="address" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apartment" class="form-label">Apartment, Suite, Unit (Optional)</label>
+                                <input type="text" class="form-control" id="apartment">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="city" class="form-label">City*</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="state" class="form-label">State*</label>
+                                    <select class="form-select" id="state" required>
+                                        <option value="">Select State</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                        <option value="Assam">Assam</option>
+                                        <option value="Bihar">Bihar</option>
+                                        <option value="Chhattisgarh">Chhattisgarh</option>
+                                        <option value="Goa">Goa</option>
+                                        <option value="Gujarat">Gujarat</option>
+                                        <option value="Haryana">Haryana</option>
+                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                        <option value="Jharkhand">Jharkhand</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Manipur">Manipur</option>
+                                        <option value="Meghalaya">Meghalaya</option>
+                                        <option value="Mizoram">Mizoram</option>
+                                        <option value="Nagaland">Nagaland</option>
+                                        <option value="Odisha">Odisha</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="Sikkim">Sikkim</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Telangana">Telangana</option>
+                                        <option value="Tripura">Tripura</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                        <option value="Uttarakhand">Uttarakhand</option>
+                                        <option value="West Bengal">West Bengal</option>
+                                        <option value="Delhi">Delhi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="zip" class="form-label">Postal Code*</label>
+                                    <input type="text" class="form-control" id="zip" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="country" class="form-label">Country*</label>
+                                    <select class="form-select" id="country" required>
+                                        <option value="India" selected>India</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <h3 class="checkout-card-title mt-4">Shipping Method</h3>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="shippingMethod" id="standardShipping" value="standard" checked>
+                                <label class="form-check-label" for="standardShipping">
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <div>
+                                            <strong>Standard Shipping</strong>
+                                            <p class="mb-0 text-muted">5-7 business days</p>
+                                        </div>
+                                        <span id="standard-shipping-cost">₹500</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="shippingMethod" id="expressShipping" value="express">
+                                <label class="form-check-label" for="expressShipping">
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <div>
+                                            <strong>Express Shipping</strong>
+                                            <p class="mb-0 text-muted">2-3 business days</p>
+                                        </div>
+                                        <span>₹800</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="shippingMethod" id="nextDayShipping" value="nextDay">
+                                <label class="form-check-label" for="nextDayShipping">
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <div>
+                                            <strong>Next Day Delivery</strong>
+                                            <p class="mb-0 text-muted">Delivered by tomorrow</p>
+                                        </div>
+                                        <span>₹1200</span>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="sameAsBilling" checked>
+                                <label class="form-check-label" for="sameAsBilling">
+                                    Billing address same as shipping
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary continue-btn">
+                                Continue to Payment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="order-summary">
+                        <h3 class="summary-title">Order Summary</h3>
+                        <div class="summary-products" id="summary-products">
+                            <!-- Products will be added here dynamically -->
+                        </div>
+                        <div class="summary-item">
+                            <span>Subtotal</span>
+                            <span id="subtotal"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Shipping</span>
+                            <span id="shipping"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Tax (18%)</span>
+                            <span id="tax"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total</span>
+                            <span id="total"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <a href="#" class="footer-logo">
+                        <img src="https://dummyimage.com/180x60/d4af37/212529.png&text=LUXURY+JEWELS" alt="Luxury Jewels">
+                    </a>
+                    <div class="footer-about">
+                        <p>Crafting exquisite jewelry since 1985. Our pieces combine traditional craftsmanship with modern design for timeless elegance.</p>
+                    </div>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-item"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-item"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> Products</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-12">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h4 class="footer-title">Contact Us</h4>
+                            <div class="footer-contact-item">
+                                <div class="footer-contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="footer-contact-text">
+                                    205, Dariba Kalan, Chandni Chowk Delhi-110006, (INDIA)
+                                </div>
+                            </div>
+                            <div class="footer-contact-item">
+                                <div class="footer-contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="footer-contact-text">
+                                    +91-98998-14144
+                                </div>
+                            </div>
+                            <div class="footer-contact-item">
+                                <div class="footer-contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="footer-contact-text">
+                                    contact@luxuryjewels.com
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="footer-title">Newsletter</h4>
+                            <p>Subscribe to receive updates on new collections and exclusive offers.</p>
+                            <form class="newsletter-form d-flex">
+                                <input type="email" class="form-control me-2" placeholder="Your Email">
+                                <button type="submit" class="btn btn-primary">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p>© 2025 Luxury Jewels. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p>Privacy Policy | Terms of Service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update the progress bar for the checkout steps
+            document.querySelector('.steps-progress').style.width = '50%';
+            
+            // Get checkout data from sessionStorage
+            const checkoutData = JSON.parse(sessionStorage.getItem('checkoutData'));
+            
+            if (!checkoutData) {
+                // Redirect to cart if no checkout data is available
+                window.location.href = 'cart.html';
+                return;
+            }
+            
+            // Populate summary products
+            const summaryProductsContainer = document.getElementById('summary-products');
+            
+            checkoutData.items.forEach(item => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'summary-product';
+                productDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="summary-product-image">
+                    <div class="summary-product-info">
+                        <div class="summary-product-name">${item.name}</div>
+                        <div class="d-flex justify-content-between">
+                            <span class="summary-product-price">₹${item.price.toLocaleString()}</span>
+                            <span class="summary-product-quantity">x${item.quantity}</span>
+                        </div>
+                    </div>
+                `;
+                summaryProductsContainer.appendChild(productDiv);
+            });
+            
+            // Update summary values
+            document.getElementById('subtotal').textContent = `₹${checkoutData.subtotal.toLocaleString()}`;
+            document.getElementById('shipping').textContent = checkoutData.shipping === 0 ? 'Free' : `₹${checkoutData.shipping.toLocaleString()}`;
+            document.getElementById('tax').textContent = `₹${checkoutData.tax.toLocaleString()}`;
+            document.getElementById('total').textContent = `₹${checkoutData.total.toLocaleString()}`;
+            
+            // Set shipping cost based on checkout data
+            document.getElementById('standard-shipping-cost').textContent = checkoutData.shipping === 0 ? 'Free' : `₹${checkoutData.shipping.toLocaleString()}`;
+            
+            // Handle shipping method change
+            const shippingMethods = document.querySelectorAll('input[name="shippingMethod"]');
+            shippingMethods.forEach(method => {
+                method.addEventListener('change', function() {
+                    let shippingCost = 0;
+                    
+                    switch(this.value) {
+                        case 'standard':
+                            shippingCost = checkoutData.subtotal > 10000 ? 0 : 500;
+                            break;
+                        case 'express':
+                            shippingCost = 800;
+                            break;
+                        case 'nextDay':
+                            shippingCost = 1200;
+                            break;
+                    }
+                    
+                    const total = checkoutData.subtotal + shippingCost + checkoutData.tax;
+                    
+                    // Update shipping and total in the UI
+                    document.getElementById('shipping').textContent = shippingCost === 0 ? 'Free' : `₹${shippingCost.toLocaleString()}`;
+                    document.getElementById('total').textContent = `₹${total.toLocaleString()}`;
+                    
+                    // Update checkout data
+                    checkoutData.shipping = shippingCost;
+                    checkoutData.total = total;
+                    sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+                });
+            });
+            
+            // Handle form submission
+            document.getElementById('shipping-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get shipping details
+                const shippingDetails = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value,
+                    apartment: document.getElementById('apartment').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    zip: document.getElementById('zip').value,
+                    country: document.getElementById('country').value,
+                    shippingMethod: document.querySelector('input[name="shippingMethod"]:checked').value
+                };
+                
+                // Save shipping details to sessionStorage
+                checkoutData.shippingDetails = shippingDetails;
+                sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+                
+                // Redirect to payment page
+                window.location.href = 'payment.html';
+            });
+        });
+    </script>
+</body>
+</html> 

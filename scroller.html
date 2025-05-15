@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Button Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 3000px; /* To enable scrolling */
+            background-color: #f5f5f5;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .scroll-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #d4af37;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .scroll-btn:hover {
+            transform: translateY(-5px);
+        }
+        
+        .scroll-btn i {
+            font-size: 20px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Scroll Button Example</h1>
+        <p>Scroll down to see the button in the bottom right corner.</p>
+        
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p>
+        
+        <!-- Repeat content to make page scrollable -->
+        <div id="repeat-content"></div>
+    </div>
+    
+    <button class="scroll-btn" id="scrollBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <footer>
+        © 2025 Luxury Jewels. All Rights Reserved.
+    </footer>
+    
+    <script>
+        // Generate repeated content
+        const repeatContent = document.getElementById('repeat-content');
+        for (let i = 0; i < 20; i++) {
+            const paragraph = document.createElement('p');
+            paragraph.textContent = `Paragraph ${i+1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.`;
+            repeatContent.appendChild(paragraph);
+        }
+        
+        // Scroll to top when button is clicked
+        document.getElementById('scrollBtn').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html> 
